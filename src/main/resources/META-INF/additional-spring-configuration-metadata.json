@@ -3,6 +3,6 @@
     {
       "name": "spring.jpa.propeties.hibernate.dialect",
       "type": "java.lang.String",
-      "description": "Description for spring.jpa.propeties.hibernate.dialect."
+      "description": "Description for spring.jpa.properties.hibernate.dialect."
   }
 ] }
