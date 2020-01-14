@@ -10,11 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TrelloBadgesDto {
+public class TrelloAttachmentsByTypeDto {
 
-    @JsonProperty("votes")
-    private int votes;
+    @JsonProperty("trello")
+    private TrelloTrelloDto trelloTrelloDto;
 
-    @JsonProperty("attachmentsByType")
-    private TrelloAttachmentsByTypeDto attachmentsByTypeDto;
 }
