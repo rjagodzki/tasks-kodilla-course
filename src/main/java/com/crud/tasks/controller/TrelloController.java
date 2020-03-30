@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/v1/trello")
+@RequestMapping("*")
 public class TrelloController {
 
     @Autowired
