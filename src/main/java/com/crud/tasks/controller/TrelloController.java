@@ -1,12 +1,11 @@
 package com.crud.tasks.controller;
 
 import com.crud.tasks.domain.*;
-import com.crud.tasks.trello.client.TrelloClient;
+import com.crud.tasks.service.TrelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @CrossOrigin("*")
 @RestController
@@ -14,15 +13,15 @@ import java.util.Objects;
 public class TrelloController {
 
     @Autowired
-    private TrelloClient trelloClient;
+    private TrelloService trelloService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    @RequestMapping(method = RequestMethod.GET, value = "/getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
-        return trelloClient.getTrelloBoards();
+        return trelloService.fetchTrelloBoards();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createTrelloCard")
+    @RequestMapping(method = RequestMethod.POST, value = "/createTrelloCard")
     public CreatedTrelloCard createdTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
-        return trelloClient.createNewCard(trelloCardDto);
+        return trelloService.createdTrelloCard(trelloCardDto);
     }
 }
