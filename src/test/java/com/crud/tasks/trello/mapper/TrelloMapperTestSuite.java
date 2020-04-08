@@ -2,7 +2,6 @@ package com.crud.tasks.trello.mapper;
 
 import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
-import com.crud.tasks.trello.facade.TrelloFacade;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
