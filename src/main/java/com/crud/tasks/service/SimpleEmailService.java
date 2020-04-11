@@ -25,7 +25,7 @@ public class SimpleEmailService {
     public void send(final Mail mail) {
         LOGGER.info("Starting email preparation...");
         try {
-            SimpleMailMessage mailMessage = createMailMessage(mail);
+//            SimpleMailMessage mailMessage = createMailMessage(mail);
             javaMailSender.send(createMimeMessage(mail));
 
             LOGGER.info("Email has been sent.");
@@ -41,6 +41,9 @@ public class SimpleEmailService {
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+            if(mail.getToCc() != null) {
+                messageHelper.setCc(mail.getToCc());
+            }
         };
     }
 
