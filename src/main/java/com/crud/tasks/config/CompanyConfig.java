@@ -7,6 +7,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 public class CompanyConfig {
+    @Value("${info.app.owner.name}")
+    private String ownerName;
+
+    @Value("${info.app.owner.surname}")
+    private String ownerSurname;
+
     @Value("${info.app.company.name}")
     private String companyName;
 

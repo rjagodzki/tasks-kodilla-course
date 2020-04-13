@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Mail;
+import com.crud.tasks.scheduler.EmailScheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,13 +22,17 @@ public class SimpleEmailService {
     private JavaMailSender javaMailSender;
 
     @Autowired
-    MailCreatorService mailCreatorService;
+    private MailCreatorService mailCreatorService;
+
+    @Autowired
+    private EmailScheduler emailScheduler;
 
     public void send(final Mail mail) {
         LOGGER.info("Starting email preparation...");
         try {
 //            SimpleMailMessage mailMessage = createMailMessage(mail);
-            javaMailSender.send(createMimeMessage(mail));
+//            javaMailSender.send(createMimeMessage(mail));
+            javaMailSender.send(createMimeMessageReminder(mail));
 
             LOGGER.info("Email has been sent.");
 
@@ -41,6 +47,20 @@ public class SimpleEmailService {
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+            if(mail.getToCc() != null) {
+                messageHelper.setCc(mail.getToCc());
+            }
+        };
+    }
+
+
+
+    private MimeMessagePreparator createMimeMessageReminder(final Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.taskReminderEMail(mail.getMessage()), true);
             if(mail.getToCc() != null) {
                 messageHelper.setCc(mail.getToCc());
             }
