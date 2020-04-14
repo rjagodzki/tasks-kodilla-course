@@ -27,13 +27,24 @@ public class SimpleEmailService {
     @Autowired
     private EmailScheduler emailScheduler;
 
+    public void sendTest(final Mail mail) {
+        LOGGER.info("Starting email preparation...");
+        try {
+            SimpleMailMessage mailMessage = createMailMessage(mail);
+            javaMailSender.send(mailMessage);
+
+            LOGGER.info("Email has been sent.");
+
+        } catch (MailException e) {
+            LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
+        }
+    }
+
     public void send(final Mail mail) {
         LOGGER.info("Starting email preparation...");
         try {
-//            SimpleMailMessage mailMessage = createMailMessage(mail);
-//            javaMailSender.send(createMimeMessage(mail));
+            javaMailSender.send(createMimeMessage(mail));
             javaMailSender.send(createMimeMessageReminder(mail));
-
 
             LOGGER.info("Email has been sent.");
 
