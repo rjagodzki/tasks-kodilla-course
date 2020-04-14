@@ -61,7 +61,7 @@ public class SimpleEmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.taskReminderEMail(mail.getMessage()), true);
+            messageHelper.setText(mailCreatorService.taskReminderEMail(), true);
             if(mail.getToCc() != null) {
                 messageHelper.setCc(mail.getToCc());
             }

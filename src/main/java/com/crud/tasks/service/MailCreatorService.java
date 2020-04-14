@@ -54,7 +54,7 @@ public class MailCreatorService {
 
 //        @Scheduled(fixedDelay = 10000)
 //    @Scheduled(cron = "0 0 10 * * *")
-    public String taskReminderEMail(String message) {
+    public String taskReminderEMail() {
         long size = taskRepository.count();
 
         List<String> motivator = new ArrayList<>();
@@ -63,7 +63,7 @@ public class MailCreatorService {
         motivator.add("Do something right now!");
 
         Context context = new Context();
-        context.setVariable("message", message);
+//        context.setVariable("message", message);
         context.setVariable("tasks_url", "http://localhost:8888/crud");
         context.setVariable("button", "Visit website");
         context.setVariable("motivator", motivator);
