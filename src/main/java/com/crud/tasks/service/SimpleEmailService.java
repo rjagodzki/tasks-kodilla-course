@@ -34,6 +34,7 @@ public class SimpleEmailService {
 //            javaMailSender.send(createMimeMessage(mail));
             javaMailSender.send(createMimeMessageReminder(mail));
 
+
             LOGGER.info("Email has been sent.");
 
         } catch (MailException e) {
